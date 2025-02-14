@@ -1,0 +1,59 @@
+{
+  "xsappname": "MyHANAApp",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.Admin",
+      "description": "Admin"
+    },
+    {
+      "name": "$XSAPPNAME.Read",
+      "description": "Allows reading data",
+      "grant-as-authority-to-apps": ["$XSAPPNAME"]
+    },
+    {
+      "name": "$XSAPPNAME.Write",
+      "description": "Allows writing data",
+      "grant-as-authority-to-apps": ["$XSAPPNAME"]
+    },
+    {
+      "name": "$XSAPPNAME.User",
+      "description": "User Scope"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [
+    {
+      "name": "Admin",
+      "description": "Admin users with full access",
+      "scope-references": [
+        "$XSAPPNAME.Admin",
+        "$XSAPPNAME.Read",
+        "$XSAPPNAME.Write"
+      ],
+      
+      "attribute-references": []
+    },
+    {
+      "name": "User",
+      "description": "User Role",
+      "scope-references": ["$XSAPPNAME.User"]
+    }
+  ],
+  "role-collections": [
+    {
+      "name": "MyHANAApp Admins",
+      "description": "Admins with full access",
+      "role-template-references": ["Admin"]
+    }
+  ],
+  "oauth2-configuration": {
+    "credential-types": [
+      "binding-secret",
+      "x509"
+    ],
+    "redirect-uris": [
+      "https://*.applicationstudio.cloud.sap/**"
+    ]
+  }
+}

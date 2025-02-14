@@ -1,0 +1,37 @@
+{
+  "name": "MyHANAApp",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@cap-js/hana": "^1",
+    "@sap/cds": "^8",
+    "@sap/cds-common-content": "^2.1.0",
+    "@sap/xsenv": "^5.4.0",
+    "@sap/xssec": "^4",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/cds-types": "^0.8.0",
+    "@cap-js/sqlite": "^1",
+    "@sap/cds-dk": "^8"
+  },
+  "scripts": {
+    "start": "export VCAP_SERVICES=\"$(cf env MyHANAApp | awk 'BEGIN {flag=0} /VCAP_SERVICES/{flag=1} flag' | sed 's/VCAP_SERVICES: //g' | jq -c .)\" && cds run",
+    "watch-interaction_items": "cds watch --open interaction_items/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "cds": {
+    "requires": {
+      "auth": "xsuaa",
+      "db": "hana"
+    },
+    "sql": {
+      "native_hana_associations": false
+    }
+  },
+  "sapux": [
+    "app/interaction_items"
+  ]
+}
